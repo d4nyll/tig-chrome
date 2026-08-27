@@ -16,6 +16,28 @@
 
 Click the toolbar icon to see the current page's tag and to set one. The icon takes the color of the tag, so you can see the page's state without opening the popup. Tags live in `chrome.storage.local`, keyed by host, path, and query string, so `http` and `https` versions of a page share a tag and a `#fragment` doesn't split one.
 
+## Clear your tags
+
+The popup can't erase anything. Clearing lives on the options page, which you reach either by clicking **Options** at the bottom of the popup, or by right-clicking the Tig icon and choosing **Options**.
+
+The page tells you how many pages you've tagged, then asks you to type `delete all tags` before it enables the button. **Save a backup file first** stays checked by default. With it checked, Tig writes every tag to a JSON file and only erases the tags once the file reaches your disk. Cancel the save dialog and Tig keeps your tags.
+
+Chrome hands the file to its own download machinery, so the save dialog opens wherever you last saved a download rather than in your home directory. No extension API can preselect a directory. Tig suggests the name `tig-backup-YYYY-MM-DD.json`, and you pick the folder.
+
+The backup is a JSON object mapping each key to its tag:
+
+```json
+{
+  "example.com//docs/intro?v=2": { "color": "green", "text": "Done" }
+}
+```
+
+Nothing reads that file back yet. To restore a backup, open the options page, open its DevTools console, and paste the file's contents into this call:
+
+```js
+chrome.storage.local.set({ "example.com//docs/intro?v=2": { "color": "green", "text": "Done" } })
+```
+
 ## Install it locally
 
 You don't need the Chrome Web Store to run this.
@@ -46,10 +68,11 @@ $ node tag.test.mjs
 
 The files:
 
-- `manifest.json` declares the popup, the service worker, and the `storage`, `tabs`, and `unlimitedStorage` permissions
+- `manifest.json` declares the popup, the options page, the service worker, and the `downloads`, `storage`, `tabs`, and `unlimitedStorage` permissions
 - `tag.js` reads the active tab and its tag, and both the popup and the service worker import it
 - `background.js` runs as a service worker and repaints the toolbar icon when you switch tabs, navigate, or change a tag
 - `popup/` holds the popup, which reads and writes `chrome.storage.local` directly
+- `options/` holds the backup and clearing page, the only place that erases anything
 
 ### What differs from the Firefox version
 
@@ -57,3 +80,4 @@ The files:
 - The APIs are `chrome.*` rather than `browser.*`, and they return promises.
 - The popup talks to `chrome.storage` itself instead of asking the background script to do it, so the two message commands the Firefox version passes around are gone. The service worker watches `chrome.storage.onChanged` to keep the icon in step.
 - The popup loads no remote font. It asks for Nunito and falls back to the system font.
+- The Firefox version clears everything from a button in the popup. Here the popup only links to the options page, which asks you to type a phrase and offers a backup first.

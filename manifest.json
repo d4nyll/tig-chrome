@@ -11,10 +11,15 @@
     "128": "icons/default_128.png"
   },
   "permissions": [
+    "downloads",
     "storage",
     "tabs",
     "unlimitedStorage"
   ],
+  "options_ui": {
+    "page": "options/index.html",
+    "open_in_tab": true
+  },
   "action": {
     "default_icon": {
       "16": "icons/default_16.png",

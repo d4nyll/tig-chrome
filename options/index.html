@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tig</title>
+    <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <h1>Tig</h1>
+  <p id="count">Counting your tags&hellip;</p>
+
+  <section id="danger">
+    <h2>Clear all data</h2>
+    <p>Clearing removes every tag on every page, and you can't undo it.</p>
+    <label id="backup-label">
+      <input type="checkbox" id="backup" checked>
+      Save a backup file first
+    </label>
+    <p>To confirm, type <code>delete all tags</code> below.</p>
+    <input type="text" id="confirm" placeholder="delete all tags" autocomplete="off" spellcheck="false">
+    <button id="clear" disabled>Clear all data</button>
+    <p id="message" class="hidden"></p>
+  </section>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

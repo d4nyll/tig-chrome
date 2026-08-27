@@ -28,14 +28,8 @@ document.addEventListener("click", async (e) => {
     }
     await chrome.storage.local.set({ [tab.internalId]: { color, text } });
     updateTag(color, text);
-  } else if (e.target.id === "clear") {
-    try {
-      await chrome.storage.local.clear();
-    } catch (err) {
-      showError("Cannot clear storage.");
-      return;
-    }
-    updateTag();
+  } else if (e.target.id === "options") {
+    chrome.runtime.openOptionsPage();
   }
 });
 
