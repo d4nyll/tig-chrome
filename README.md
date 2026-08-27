@@ -81,3 +81,7 @@ The files:
 - The popup talks to `chrome.storage` itself instead of asking the background script to do it, so the two message commands the Firefox version passes around are gone. The service worker watches `chrome.storage.onChanged` to keep the icon in step.
 - The popup loads no remote font. It asks for Nunito and falls back to the system font.
 - The Firefox version clears everything from a button in the popup. Here the popup only links to the options page, which asks you to type a phrase and offers a backup first.
+
+## License
+
+[MIT](LICENSE), an [OSI-approved license](https://opensource.org/license/mit).
