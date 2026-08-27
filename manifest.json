@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Tig",
+  "version": "1.0",
+  "description": "Allow you to tag pages with a color and text. Useful for tagging articles/documentation as read/understood, for revision by tagging articles as 'Mastered', 'In Progress', and 'Need Help'",
+  "homepage_url": "https://github.com/d4nyll/tig",
+  "icons": {
+    "16": "icons/default_16.png",
+    "32": "icons/default_32.png",
+    "48": "icons/default_48.png",
+    "128": "icons/default_128.png"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "unlimitedStorage"
+  ],
+  "action": {
+    "default_icon": {
+      "16": "icons/default_16.png",
+      "32": "icons/default_32.png",
+      "48": "icons/default_48.png",
+      "96": "icons/default_96.png"
+    },
+    "default_title": "Tag Page",
+    "default_popup": "popup/index.html"
+  },
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  }
+}
