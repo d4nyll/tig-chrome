@@ -60,17 +60,18 @@ The recipient unzips it and follows the install steps above.
 
 ## Development
 
-Run the one check on the tag key format:
+Run the checks:
 
 ```
 $ node tag.test.mjs
+$ node background.test.mjs
 ```
 
 The files:
 
 - `manifest.json` declares the popup, the options page, the service worker, and the `downloads`, `storage`, `tabs`, and `unlimitedStorage` permissions
-- `tag.js` reads the active tab and its tag, and both the popup and the service worker import it
-- `background.js` runs as a service worker and repaints the toolbar icon when you switch tabs, navigate, or change a tag
+- `tag.js` builds the tag key from a URL, reads a tag from storage, and reads the active tab, and both the popup and the service worker import it
+- `background.js` runs as a service worker and repaints the toolbar icon when you switch tabs, navigate, or change a tag. Each listener passes the tab it was given to `paintIcon`, because the icon Chrome shows is per tab and lasts until you close the tab
 - `popup/` holds the popup, which reads and writes `chrome.storage.local` directly
 - `options/` holds the backup and clearing page, the only place that erases anything
 
